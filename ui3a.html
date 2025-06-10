@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkHive - Onboarding Flow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe', 
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e'
+                        },
+                        success: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d'
+                        },
+                        error: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c'
+                        },
+                        gray: {
+                            25: '#fcfcfd',
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827'
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'clean': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'clean-lg': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'clean-xl': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-gentle': 'pulseGentle 2s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes pulseGentle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .card-clean {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+        }
+        
+        .card-clean:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .phone-container {
+            width: 320px;
+            height: 640px;
+            background: #1f2937;
+            border-radius: 32px;
+            padding: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+            padding-top: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            background: #0284c7;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        .btn-outline {
+            background: white;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .btn-outline:hover {
+            border-color: #d1d5db;
+            background: #f9fafb;
+        }
+        
+        .input-clean {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .input-clean:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .social-btn:hover {
+            border-color: #d1d5db;
+            background: #f9fafb;
+        }
+        
+        .permission-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .permission-card:hover {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+        
+        .permission-card.selected {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+    </style>
+</head>
+
+<body class="py-8 px-4 min-h-screen">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">ParkHive</h1>
+            <p class="text-xl text-gray-600">Onboarding Flow - Clean UI</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- 1. Splash Screen -->
+            <div class="text-center">
+                <h3 class="font-semibold text-gray-700 mb-4">1. Splash Screen</h3>
+                <div class="phone-container mx-auto">
+                    <div class="phone-screen bg-primary-500">
+                        <div class="h-full flex flex-col items-center justify-center p-8 relative overflow-hidden">
+                            <!-- Background Elements -->
+                            <div class="absolute top-20 left-8 w-32 h-32 bg-white/10 rounded-full animate-pulse-gentle"></div>
+                            <div class="absolute bottom-32 right-8 w-24 h-24 bg-white/5 rounded-full animate-pulse-gentle" style="animation-delay: 1s;"></div>
+                            
+                            <!-- Logo and Text -->
+                            <div class="text-center animate-fade-in">
+                                <!-- Logo Icon -->
+                                <div class="w-24 h-24 bg-white/20 rounded-3xl flex items-center justify-center mb-8 mx-auto backdrop-blur-sm">
+                                    <div class="text-5xl">🅿️</div>
+                                </div>
+                                
+                                <!-- App Name -->
+                                <h1 class="text-4xl font-bold text-white mb-4">ParkHive</h1>
+                                <p class="text-xl text-white/80 font-medium mb-12">Smart Parking Community</p>
+                                
+                                <!-- Loading Indicator -->
+                                <div class="flex justify-center">
+                                    <div class="w-12 h-1 bg-white/30 rounded-full overflow-hidden">
+                                        <div class="w-full h-full bg-white rounded-full animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Welcome/Permissions -->
+            <div class="text-center">
+                <h3 class="font-semibold text-gray-700 mb-4">2. Welcome & Permissions</h3>
+                <div class="phone-container mx-auto">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-signal text-sm"></i>
+                                <i class="fas fa-wifi text-sm"></i>
+                                <i class="fas fa-battery-three-quarters text-sm"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 h-full flex flex-col">
+                            <!-- Welcome Content -->
+                            <div class="text-center mb-8 animate-slide-up">
+                                <div class="w-20 h-20 bg-primary-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                    <div class="text-4xl">👋</div>
+                                </div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-4">Welcome to ParkHive</h2>
+                                <p class="text-lg text-gray-600 leading-relaxed">Join thousands of drivers sharing real-time parking data to make city parking effortless.</p>
+                            </div>
+                            
+                            <!-- Permissions -->
+                            <div class="flex-1 mb-8">
+                                <h3 class="font-semibold text-gray-900 mb-6 text-center">We need a few permissions to get started</h3>
+                                
+                                <div class="space-y-4">
+                                    <!-- Location Permission -->
+                                    <div class="permission-card">
+                                        <div class="w-12 h-12 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                            <i class="fas fa-map-marker-alt text-primary-500 text-xl"></i>
+                                        </div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Location Access</h4>
+                                        <p class="text-sm text-gray-600">Find and report parking spots near you</p>
+                                    </div>
+                                    
+                                    <!-- Camera Permission -->
+                                    <div class="permission-card">
+                                        <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                            <i class="fas fa-camera text-green-500 text-xl"></i>
+                                        </div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Camera Access</h4>
+                                        <p class="text-sm text-gray-600">Take photos to verify parking spots</p>
+                                    </div>
+                                    
+                                    <!-- Notifications Permission -->
+                                    <div class="permission-card">
+                                        <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                            <i class="fas fa-bell text-orange-500 text-xl"></i>
+                                        </div>
+                                        <h4 class="font-semibold text-gray-900 mb-2">Notifications</h4>
+                                        <p class="text-sm text-gray-600">Get alerts about parking opportunities</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Continue Button -->
+                            <button class="btn-primary">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Login Screen -->
+            <div class="text-center">
+                <h3 class="font-semibold text-gray-700 mb-4">3. Login</h3>
+                <div class="phone-container mx-auto">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-signal text-sm"></i>
+                                <i class="fas fa-wifi text-sm"></i>
+                                <i class="fas fa-battery-three-quarters text-sm"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 h-full flex flex-col">
+                            <!-- Header -->
+                            <div class="text-center mb-8">
+                                <div class="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <div class="text-2xl">🅿️</div>
+                                </div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
+                                <p class="text-lg text-gray-600">Sign in to your account</p>
+                            </div>
+                            
+                            <!-- Login Form -->
+                            <div class="flex-1 space-y-6">
+                                <!-- Email Input -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                                    <input type="email" placeholder="Enter your email" class="input-clean">
+                                </div>
+                                
+                                <!-- Password Input -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                                    <div class="relative">
+                                        <input type="password" placeholder="Enter your password" class="input-clean pr-12">
+                                        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Forgot Password -->
+                                <div class="text-right">
+                                    <a href="#" class="text-primary-500 font-semibold text-sm hover:text-primary-600">Forgot password?</a>
+                                </div>
+                                
+                                <!-- Sign In Button -->
+                                <button class="btn-primary">Sign in</button>
+                                
+                                <!-- Divider */
+                                <div class="relative my-8">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-gray-200"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-sm">
+                                        <span class="px-4 bg-white text-gray-500 font-medium">or continue with</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Social Login */
+                                <div class="space-y-3">
+                                    <button class="social-btn">
+                                        <i class="fab fa-google text-red-500"></i>
+                                        <span>Continue with Google</span>
+                                    </button>
+                                    <button class="social-btn">
+                                        <i class="fab fa-apple text-gray-900"></i>
+                                        <span>Continue with Apple</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sign Up Link -->
+                            <div class="text-center mt-6">
+                                <p class="text-gray-600">
+                                    Don't have an account? 
+                                    <a href="#" class="text-primary-500 font-semibold hover:text-primary-600">Sign up</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Register Screen -->
+            <div class="text-center">
+                <h3 class="font-semibold text-gray-700 mb-4">4. Register</h3>
+                <div class="phone-container mx-auto">
+                    <div class="phone-screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-signal text-sm"></i>
+                                <i class="fas fa-wifi text-sm"></i>
+                                <i class="fas fa-battery-three-quarters text-sm"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 h-full flex flex-col">
+                            <!-- Header -->
+                            <div class="text-center mb-8">
+                                <div class="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                    <div class="text-2xl">✨</div>
+                                </div>
+                                <h2 class="text-3xl font-bold text-gray-900 mb-2">Create account</h2>
+                                <p class="text-lg text-gray-600">Join the parking community</p>
+                            </div>
+                            
+                            <!-- Registration Form -->
+                            <div class="flex-1 space-y-6">
+                                <!-- Full Name Input -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Full name</label>
+                                    <input type="text" placeholder="Enter your full name" class="input-clean">
+                                </div>
+                                
+                                <!-- Email Input -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                                    <input type="email" placeholder="Enter your email" class="input-clean">
+                                </div>
+                                
+                                <!-- Password Input -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                                    <div class="relative">
+                                        <input type="password" placeholder="Create a password" class="input-clean pr-12">
+                                        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mt-2">Must be at least 8 characters</p>
+                                </div>
+                                
+                                <!-- Terms & Conditions */
+                                <div class="flex items-start gap-3">
+                                    <input type="checkbox" id="terms" class="mt-1 rounded border-gray-300 text-primary-500 focus:ring-primary-500">
+                                    <label for="terms" class="text-sm text-gray-600 leading-relaxed">
+                                        I agree to the <a href="#" class="text-primary-500 font-semibold">Terms of Service</a> and <a href="#" class="text-primary-500 font-semibold">Privacy Policy</a>
+                                    </label>
+                                </div>
+                                
+                                <!-- Create Account Button -->
+                                <button class="btn-primary">Create account</button>
+                                
+                                <!-- Divider */
+                                <div class="relative my-8">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-gray-200"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-sm">
+                                        <span class="px-4 bg-white text-gray-500 font-medium">or sign up with</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Social Registration */
+                                <div class="space-y-3">
+                                    <button class="social-btn">
+                                        <i class="fab fa-google text-red-500"></i>
+                                        <span>Sign up with Google</span>
+                                    </button>
+                                    <button class="social-btn">
+                                        <i class="fab fa-apple text-gray-900"></i>
+                                        <span>Sign up with Apple</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sign In Link -->
+                            <div class="text-center mt-6">
+                                <p class="text-gray-600">
+                                    Already have an account? 
+                                    <a href="#" class="text-primary-500 font-semibold hover:text-primary-600">Sign in</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Flow Summary -->
+        <div class="mt-16 card-clean p-8 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Onboarding Flow</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-primary-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">1. Splash</h3>
+                    <p class="text-gray-600 text-sm">App launch with branding and loading</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-green-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">2. Permissions</h3>
+                    <p class="text-gray-600 text-sm">Welcome and essential app permissions</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sign-in-alt text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">3. Login</h3>
+                    <p class="text-gray-600 text-sm">Returning user authentication</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-plus text-purple-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">4. Register</h3>
+                    <p class="text-gray-600 text-sm">New user account creation</p>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="mt-8 pt-8 border-t border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Key Features</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4">
+                        <i class="fas fa-mobile-alt text-primary-500 text-lg mb-2"></i>
+                        <p class="text-sm font-medium text-gray-700">Clean Mobile UI</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-lock text-green-500 text-lg mb-2"></i>
+                        <p class="text-sm font-medium text-gray-700">Secure Authentication</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-users text-blue-500 text-lg mb-2"></i>
+                        <p class="text-sm font-medium text-gray-700">Social Login</p>
+                    </div>
+                    <div class="p-4">
+                        <i class="fas fa-cog text-gray-500 text-lg mb-2"></i>
+                        <p class="text-sm font-medium text-gray-700">Permission Management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
