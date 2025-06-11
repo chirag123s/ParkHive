@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Alert } from 'react-native';
 import { router } from 'expo-router';
 import { Button, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -18,7 +18,8 @@ import {
   Award, 
   Settings,
   ChevronRight,
-  Car
+  Car,
+  LogOut
 } from 'lucide-react-native';
 
 export default function ProfileScreen() {
@@ -34,6 +35,23 @@ export default function ProfileScreen() {
     { title: 'App Permissions', icon: Settings, onPress: () => router.push('/permissions') },
     { title: 'Account Settings', icon: Settings, onPress: () => {} },
   ];
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Log Out',
+      'Are you sure you want to log out?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { 
+          text: 'Log Out', 
+          style: 'destructive',
+          onPress: () => {
+            router.replace('/splash');
+          }
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -143,16 +161,32 @@ export default function ProfileScreen() {
             </VStack>
           </VStack>
 
-          {/* Quick Action */}
-          <Button 
-            size="lg" 
-            className="w-full bg-blue-500 rounded-xl mt-4"
-            onPress={() => router.push('/permissions')}
-          >
-            <ButtonText className="text-white font-semibold">
-              Review Permissions
-            </ButtonText>
-          </Button>
+          {/* Quick Actions */}
+          <VStack space="sm">
+            <Button 
+              size="lg" 
+              className="w-full bg-blue-500 rounded-xl"
+              onPress={() => router.push('/permissions')}
+            >
+              <ButtonText className="text-white font-semibold">
+                Review Permissions
+              </ButtonText>
+            </Button>
+
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="w-full border-red-300 rounded-xl"
+              onPress={handleLogout}
+            >
+              <HStack space="sm" className="items-center">
+                <LogOut size={18} color="#DC2626" />
+                <ButtonText className="text-red-600 font-semibold">
+                  Log Out
+                </ButtonText>
+              </HStack>
+            </Button>
+          </VStack>
         </VStack>
       </ScrollView>
     </View>

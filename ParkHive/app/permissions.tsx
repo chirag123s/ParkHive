@@ -57,8 +57,8 @@ export default function PermissionsScreen() {
         {
           text: 'OK',
           onPress: () => {
-            // Navigate to main app or next onboarding screen
-            router.push('/(tabs)');
+            // Navigate to authentication screen
+            router.replace('/auth');
           },
         },
       ]
@@ -69,7 +69,7 @@ export default function PermissionsScreen() {
     if (router.canGoBack()) {
       router.back();
     } else {
-      router.push('/(tabs)');
+      router.replace('/splash');
     }
   };
 

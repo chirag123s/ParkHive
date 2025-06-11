@@ -5,9 +5,10 @@ import { Button, ButtonText } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Heading } from '@/components/ui/heading';
 import { VStack } from '@/components/ui/vstack';
+import { HStack } from '@/components/ui/hstack';
 import { Text } from '@/components/ui/text';
 import { View } from '@/components/Themed';
-import { MapPin, Settings, User } from 'lucide-react-native';
+import { MapPin, Settings, User, LogOut, LogIn } from 'lucide-react-native';
 
 export default function TabOneScreen() {
   return (
@@ -89,6 +90,55 @@ export default function TabOneScreen() {
                   View Profile
                 </ButtonText>
               </Button>
+            </VStack>
+          </Card>
+
+          {/* Auth Actions */}
+          <Card size="lg" variant="elevated" className="bg-gray-50 border-2 border-dashed border-gray-300">
+            <VStack space="md" className="items-center">
+              <VStack space="xs" className="items-center">
+                <Heading size="lg" className="text-gray-900">
+                  Authentication Flow
+                </Heading>
+                <Text className="text-gray-600 text-center text-sm">
+                  Test complete app flow and individual screens
+                </Text>
+              </VStack>
+              <VStack space="sm" className="w-full">
+                <Button 
+                  size="md" 
+                  className="w-full bg-amber-500"
+                  onPress={() => router.push('/splash')}
+                >
+                  <ButtonText className="text-white font-medium">
+                    🚀 Start App Flow
+                  </ButtonText>
+                </Button>
+                <HStack space="sm" className="w-full">
+                  <Button 
+                    size="md" 
+                    variant="outline"
+                    className="flex-1 border-gray-300"
+                    onPress={() => router.push('/auth')}
+                  >
+                    <LogIn size={16} color="#6B7280" />
+                    <ButtonText className="text-gray-700 ml-1 text-sm">
+                      Auth
+                    </ButtonText>
+                  </Button>
+                  <Button 
+                    size="md" 
+                    variant="outline"
+                    className="flex-1 border-gray-300"
+                    onPress={() => router.push('/login')}
+                  >
+                    <LogIn size={16} color="#6B7280" />
+                    <ButtonText className="text-gray-700 ml-1 text-sm">
+                      Login
+                    </ButtonText>
+                  </Button>
+                </HStack>
+              </VStack>
             </VStack>
           </Card>
         </VStack>
