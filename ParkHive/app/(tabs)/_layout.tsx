@@ -118,14 +118,6 @@ export default function TabLayout() {
           },
         }}
       />
-
-      {/* Keep the old "two" route for backward compatibility but hide it */}
-      <Tabs.Screen
-        name="two"
-        options={{
-          href: null, // This hides the tab from the tab bar
-        }}
-      />
     </Tabs>
   );
 }

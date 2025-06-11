@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, Alert, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Alert, SafeAreaView, Platform, StatusBar } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import { 
   Search, 
@@ -141,9 +141,14 @@ export default function MapScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
+    <View style={styles.container}>
+      {/* Header with proper safe area */}
+      <View style={[
+        styles.header,
+        Platform.OS === 'android' && {
+          paddingTop: StatusBar.currentHeight || 0,
+        }
+      ]}>
         <HStack className="items-center justify-between p-4">
           <Pressable onPress={handleMenuPress} className="p-2">
             <Menu size={24} color="#111418" />
@@ -234,7 +239,7 @@ export default function MapScreen() {
           <MapPin size={24} color="white" />
         </Pressable>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

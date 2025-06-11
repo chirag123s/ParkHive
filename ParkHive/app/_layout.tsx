@@ -10,6 +10,9 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
+import { StatusBar } from 'expo-status-bar';
+import { Platform } from 'react-native';
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -18,6 +21,7 @@ export {
 export const unstable_settings = {
   // Ensure that reloading on `/splash` keeps the splash screen as initial route.
   initialRouteName: 'splash',
+  
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -51,9 +55,24 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <GluestackUIProvider mode="light">
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
+  <GluestackUIProvider mode="light">
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      {/* Status Bar Configuration */}
+      <StatusBar 
+        style={colorScheme === 'dark' ? 'light' : 'dark'} 
+        backgroundColor={colorScheme === 'dark' ? '#000' : '#fff'}
+        translucent={false}
+      />
+      
+      <Stack
+        screenOptions={{
+          // Ensure proper safe area handling
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+          },
+        }}
+      >
           <Stack.Screen 
             name="splash" 
             options={{ 
