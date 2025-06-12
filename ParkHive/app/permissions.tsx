@@ -65,24 +65,24 @@ export default function PermissionsScreen() {
     );
   };
 
-  const handleBack = () => {
-    if (router.canGoBack()) {
-      router.back();
-    } else {
-      router.replace('/splash');
-    }
-  };
+  // const handleBack = () => {
+  //   if (router.canGoBack()) {
+  //     router.back();
+  //   } else {
+  //     router.replace('/splash');
+  //   }
+  // };
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
       {/* Header */}
       <View className="flex-row items-center justify-between px-4 py-3 bg-gray-50 border-b border-gray-200">
-        <Pressable 
+        /{/*<Pressable 
           className="w-10 h-10 items-center justify-center rounded-lg"
           onPress={handleBack}
         >
           <ChevronLeft size={24} color="#1C1C1E" />
-        </Pressable>
+        </Pressable>*/}
         
         <Heading size="lg" className="text-gray-900 font-semibold">
           ParkHive

@@ -11,21 +11,19 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
 
 import { StatusBar } from 'expo-status-bar';
-import { Platform } from 'react-native';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/splash` keeps the splash screen as initial route.
-  initialRouteName: 'splash',
-  
-};
+import { SafeAreaProvider , SafeAreaView} from 'react-native-safe-area-context';
+import CustomSafeArea from '@/components/CustomSafeArea';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+export const unstable_settings = {
+  initialRouteName: 'splash',
+};
+
+export {
+  ErrorBoundary,
+} from 'expo-router';
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -33,7 +31,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -44,73 +41,42 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+  if (!loaded) return null;
 
-  return <GluestackUIProvider mode="light"><RootLayoutNav /></GluestackUIProvider>;
+  return (
+    <CustomSafeArea>
+      <GluestackUIProvider mode="light">
+        <RootLayoutNav />
+      </GluestackUIProvider>
+    </CustomSafeArea>
+  );
 }
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-  <GluestackUIProvider mode="light">
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      {/* Status Bar Configuration */}
       <StatusBar 
         style={colorScheme === 'dark' ? 'light' : 'dark'} 
         backgroundColor={colorScheme === 'dark' ? '#000' : '#fff'}
         translucent={false}
       />
-      
       <Stack
         screenOptions={{
-          // Ensure proper safe area handling
           headerShown: false,
           contentStyle: {
             backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
           },
         }}
       >
-          <Stack.Screen 
-            name="splash" 
-            options={{ 
-              headerShown: false,
-              gestureEnabled: false,
-            }} 
-          />
-          <Stack.Screen 
-            name="permissions" 
-            options={{ 
-              headerShown: false,
-              gestureEnabled: false,
-            }} 
-          />
-          <Stack.Screen 
-            name="auth" 
-            options={{ 
-              headerShown: false,
-              gestureEnabled: false,
-            }} 
-          />
-          <Stack.Screen 
-            name="login" 
-            options={{ 
-              headerShown: false,
-              gestureEnabled: false,
-            }} 
-          />
-          <Stack.Screen 
-            name="(tabs)" 
-            options={{ headerShown: false }} 
-          />
-          <Stack.Screen 
-            name="modal" 
-            options={{ presentation: 'modal' }} 
-          />
-        </Stack>
-      </ThemeProvider>
-    </GluestackUIProvider>
+        <Stack.Screen name="splash" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="permissions" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="auth" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false, gestureEnabled: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+      </Stack>
+    </ThemeProvider>
   );
 }

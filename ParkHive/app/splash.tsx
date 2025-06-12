@@ -36,7 +36,6 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
       <VStack space="xl" className="flex-1 items-center justify-center px-8">
         <Animated.View
           style={{
@@ -89,6 +88,5 @@ export default function SplashScreen() {
           </VStack>
         </Animated.View>
       </VStack>
-    </SafeAreaView>
   );
 }

@@ -96,7 +96,7 @@ export default function ReportScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <View className="flex-1 bg-gray-50">
       {/* Header */}
       <View className="bg-white border-b border-gray-200 px-4 py-4">
         <Heading size="xl" className="text-gray-900 font-bold text-center">
@@ -354,6 +354,6 @@ export default function ReportScreen() {
           </Card>
         </VStack>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

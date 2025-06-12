@@ -40,7 +40,6 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '500',
-          marginBottom: 4,
         },
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
@@ -58,9 +57,6 @@ export default function TabLayout() {
             backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
           },
           headerTitleStyle: {
-            fontWeight: '700',
-            fontSize: 20,
-            color: '#111418',
           },
           headerRight: () => (
             <Link href="/permissions" asChild>
