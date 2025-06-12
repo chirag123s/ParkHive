@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { createInput } from '@gluestack-ui/input';
-import { View, Pressable, TextInput } from 'react-native';
+import { View, Pressable, TextInput, Platform } from 'react-native';
 import { tva } from '@gluestack-ui/nativewind-utils/tva';
 import {
   withStyleContext,
@@ -10,6 +10,7 @@ import {
 import { cssInterop } from 'nativewind';
 import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 import { PrimitiveIcon, UIIcon } from '@gluestack-ui/icon';
+import { KeyboardAvoidingView } from 'react-native';
 
 const SCOPE = 'INPUT';
 
@@ -109,12 +110,14 @@ const Input = React.forwardRef<React.ComponentRef<typeof UIInput>, IInputProps>(
     ref
   ) {
     return (
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
       <UIInput
         ref={ref}
         {...props}
         className={inputStyle({ variant, size, class: className })}
         context={{ variant, size }}
       />
+      </KeyboardAvoidingView>
     );
   }
 );

@@ -138,19 +138,19 @@ export default function AuthScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <View className="flex-1 bg-white">
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         <VStack space="lg" className="px-4 py-6">
           {/* Header */}
           <View className="w-full max-w-md mx-auto">
-            <HStack className="items-center justify-start mb-10">
+            {/* <HStack className="items-center justify-start mb-10">
               <Pressable 
                 className="w-10 h-10 items-center justify-center rounded-lg"
                 onPress={handleBack}
               >
                 <ChevronLeft size={24} color="#18181B" />
               </Pressable>
-            </HStack>
+            </HStack> */}
 
             {/* Logo & Title Section */}
             <VStack space="lg" className="items-center text-center mb-8">
@@ -163,7 +163,7 @@ export default function AuthScreen() {
                 <Heading size="2xl" className="text-gray-900 font-semibold tracking-tight">
                   {authMode === 'register' ? 'Create Account' : 'Welcome Back'}
                 </Heading>
-                <Text className="text-gray-600 text-base">
+                <Text className="text-gray-600 text-base text-center">
                   {authMode === 'register' 
                     ? 'Join ParkHive to find parking easily' 
                     : 'Sign in to your ParkHive account'
@@ -380,6 +380,6 @@ export default function AuthScreen() {
           </View>
         </VStack>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
